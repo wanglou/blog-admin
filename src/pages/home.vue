@@ -83,7 +83,8 @@ export default {
         { name: '用户', path: '/user', icon: 'el-icon-user-solid' },
         { name: '文章', path: '/articlePage', icon: 'el-icon-edit-outline' },
         { name: '评论', path: '/comment', icon: 'el-icon-s-comment' },
-        { name: '留言墙', path: '/messageWall', icon: 'el-icon-document' }
+        { name: '留言墙', path: '/messageWall', icon: 'el-icon-document' },
+        { name: '友链', path: '/friendChain', icon: 'el-icon-link' }
       ]
     }
   },

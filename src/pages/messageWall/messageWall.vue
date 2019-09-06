@@ -2,7 +2,7 @@
   <div class="message-wall">
     <el-row :gutter="12">
       <transition-group name="fadeIn">
-        <el-col :span="8" v-for="(item) in messageList" :key="item.id">
+        <el-col :span="8" v-for="(item, index) in messageList" :key="index">
           <el-card shadow="always">
             <div slot="header">
               <span>

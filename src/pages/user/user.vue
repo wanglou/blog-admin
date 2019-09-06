@@ -13,16 +13,13 @@
       @selection-change="handleSelectionChange"
       style="width: 100%">
       <el-table-column
+        :selectable="checkSelectable"
         type="selection"
         width="55">
       </el-table-column>
       <el-table-column
         prop="loginName"
         label="登录名">
-      </el-table-column>
-      <el-table-column
-        prop="loginPassword"
-        label="密码">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -97,6 +94,10 @@ export default {
     }
   },
   methods: {
+    // 不可选中
+    checkSelectable (val) {
+      return val.loginName !== this.$store.state.user.user.loginName
+    },
     handleCurrentChange (val) {
       this.currentPage = val
       this.getUserList()
@@ -140,8 +141,7 @@ export default {
       this.dialogVisible = true
       this.dialogTitle = '编辑用户'
       this.dynamicValidateForm = {
-        loginName: val.loginName,
-        loginPassword: val.loginPassword
+        loginName: val.loginName
       }
     },
     // 提交按钮

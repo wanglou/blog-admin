@@ -6,7 +6,7 @@ import home from '@/pages/home'
 import noFind from '@/pages/noFind'
 import index from '@/pages/modules/index'
 // 用户
-import user from '@/pages/modules/user'
+import user from '@/pages/user/user'
 // 文章
 import articlePage from '@/pages/article/articlePage'
 import addArticle from '@/pages/article/addArticle'
@@ -16,6 +16,8 @@ import commentPage from '@/pages/comment/commentPage'
 import commentDetail from '@/pages/comment/commentDetail'
 // 留言墙
 import messageWall from '@/pages/messageWall/messageWall'
+// 友链
+import friendChain from '@/pages/friendChain/friendChain'
 
 Vue.use(Router)
 var routes = [
@@ -32,7 +34,8 @@ var routes = [
       { path: '/readArticle', meta: {defaultActive: '/articlePage', name: '文章'}, component: readArticle },
       { path: '/comment', meta: {defaultActive: '/comment', name: '评论'}, component: commentPage },
       { path: '/commentDetail', meta: {defaultActive: '/comment', name: '评论'}, component: commentDetail },
-      { path: '/messageWall', meta: {defaultActive: '/messageWall', name: '留言墙'}, component: messageWall }
+      { path: '/messageWall', meta: {defaultActive: '/messageWall', name: '留言墙'}, component: messageWall },
+      { path: '/friendChain', meta: {defaultActive: '/friendChain', name: '友链'}, component: friendChain }
     ]
   },
   {

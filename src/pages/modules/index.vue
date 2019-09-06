@@ -17,12 +17,12 @@
       </span>
       <span>
         湿度：
-        {{ weather.realtime.humidity }}°C
+        {{ weather.realtime.humidity }}%
       </span>
     </header>
     <main>
       <el-row>
-        <el-col :span="8">
+        <el-col :span="12">
           <el-upload
             class="avatar-uploader"
             :action="action"
@@ -35,8 +35,39 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-col>
-        <el-col :span="16">
-          个人信息
+        <el-col :span="12">
+          <div class="person-message">
+            <p>  
+              <i class="el-icon-user-solid"></i>
+              <span>
+                爱生活爱生命
+              </span>
+            </p>
+            <p>  
+              <i class="iconfont icon-email"></i>
+              <span>
+                wangloul@163.com
+              </span>
+            </p>
+            <p>  
+              <i class="iconfont icon-qq"></i>
+              <span>
+                799817928
+              </span>
+            </p>
+            <p>
+              <i class="iconfont icon-wechat"></i>
+              <span>
+                wxl799817928
+              </span>
+            </p>
+            <p>
+              <i class="iconfont icon-github"></i>
+              <span>
+                https://github.com/wanglou
+              </span>
+            </p>
+          </div>
         </el-col>
       </el-row>
     </main>
@@ -126,30 +157,47 @@ export default {
     }
     &>main {
       margin-top: 50px;
-      .el-col:nth-child(1) {
-        text-align: center;
-        .avatar-uploader .el-upload {
-          border: 1px dashed #d9d9d9;
-          border-radius: 6px;
-          cursor: pointer;
-          position: relative;
-          overflow: hidden;
-        }
-        .avatar-uploader .el-upload:hover {
-          border-color: #409EFF;
-        }
-        .avatar-uploader-icon {
-          font-size: 28px;
-          color: #8c939d;
-          width: 200px;
-          height: 200px;
-          line-height: 200px;
+      overflow: hidden;
+      .el-row {
+        .el-col:nth-child(1) {
           text-align: center;
         }
-        .avatar {
-          width: 200px;
-          height: 200px;
-          display: block;
+      }
+      .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+      }
+      .avatar {
+        width: 200px;
+        height: 200px;
+        display: block;
+      }
+      .person-message {
+        float: left;
+        padding-left: 50px;
+        &>p {
+          margin-bottom: 10px;
+          &>i {
+            font-size: 24px;
+            margin-right: 20px;
+          }
+          &>span {
+            font-size: 20px;
+          }
         }
       }
     }
