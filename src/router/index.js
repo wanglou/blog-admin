@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import login from '@/pages/login'
 import home from '@/pages/home'
+import noFind from '@/pages/noFind'
 import index from '@/pages/modules/index'
 // 用户
 import user from '@/pages/modules/user'
@@ -38,6 +39,11 @@ var routes = [
     path: '/login',
     name: 'login',
     component: login
+  },
+  {
+    path: '*',
+    name: 'noFind',
+    component: noFind
   }
 ]
 export default new Router({
