@@ -36,6 +36,7 @@
               <i class="el-icon-caret-bottom"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="dialogVisible = true">修改头像</el-dropdown-item>
               <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -63,6 +64,26 @@
         </transition>
       </div>
     </main>
+    <!-- 弹出框 -->
+    <el-dialog
+      title="修改头像"
+      :visible.sync="dialogVisible"
+      width="500px">
+        <el-upload
+          class="avatar-uploader"
+          :action="action"
+          name="filename"
+          :data="{userId: $store.state.user.user.id, url: $store.state.user.user.url}"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -71,6 +92,8 @@ export default {
   name: 'home',
   data() {
     return {
+      imageUrl: '',
+      dialogVisible: false,
       imgUrl: '',
       defaultActive: '/index',
       defaultActiveName: '首页',
@@ -89,6 +112,24 @@ export default {
     }
   },
   methods: {
+    // 上传之前回调
+    beforeAvatarUpload (file) {
+      const isPicture = (file.type === 'image/jpeg' || file.type === 'image/png')
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isPicture) {
+        this.$message.error('上传头像图片只能是 JPG 或者 PNG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isPicture && isLt2M
+    },
+    // 上传成功回调
+    async handleAvatarSuccess (res) {
+      this.imageUrl = res.result.url
+      this.$store.dispatch('initPage')
+    },
     // 菜单路由切换
     handleSelect (item) {
       if (item.name === this.defaultActiveName) return
@@ -120,6 +161,9 @@ export default {
   computed: {
     imgUrl2 () {
       return this.$store.getters.user.url
+    },
+    action () {
+      return '/upload/avatar'
     }
   },
   async created () {
@@ -129,6 +173,9 @@ export default {
     let obj = this.$route
     this.defaultActiveName = obj.meta.name
     this.defaultActive = obj.meta.defaultActive
+    setTimeout(() => {
+      this.imageUrl = this.$store.state.user.user.url
+    }, 500)
   }
 }
 </script>
@@ -178,6 +225,34 @@ export default {
       overflow-x: hidden;
       height: calc(100vh - 100px);
       padding: 20px;
+    }
+  }
+  .el-dialog {
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-uploader {
+      text-align: center;
+    }
+    .avatar-uploader .el-upload:hover {
+      border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 200px;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+    }
+    .avatar {
+      width: 200px;
+      height: 200px;
+      display: block;
     }
   }
 }

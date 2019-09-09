@@ -4,6 +4,7 @@ import user from './modules/user'
 import article from './modules/article'
 import comment from './modules/comment'
 import messageWall from './modules/messageWall'
+import friendChain from './modules/friendChain'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     user,
     article,
     comment,
-    messageWall
+    messageWall,
+    friendChain
   }
 })

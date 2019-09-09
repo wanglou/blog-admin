@@ -1,4 +1,8 @@
 import axios from './axios'
+// 获取首页总数
+export function getCount () {
+  return axios.get('/index/count').then((res) => res)
+}
 // 获取天气
 export function getWeather (data) {
   return axios.get('/getWeather', {params: data}).then((res) => res)

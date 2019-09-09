@@ -15,6 +15,11 @@ const mutations = {
   }
 }
 const actions = {
+  async getCount ({commit}, data) {
+    let res = await server.getCount(data)
+    commit
+    return res.data
+  },
   async initPage ({commit}, data) {
     let res = await server.initPage(data)
     commit('user', res)

@@ -22,20 +22,33 @@
     </header>
     <main>
       <el-row>
-        <el-col :span="12">
-          <el-upload
-            class="avatar-uploader"
-            :action="action"
-            name="filename"
-            :data="{userId: $store.state.user.user.id, url: $store.state.user.user.url}"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+        <el-col :span="6">
+          <p>
+            <span> 访问量: </span>
+            <span> {{ count.count }} </span>
+          </p>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="6">
+          <p>
+            <span> 文章数: </span>
+            <span> {{ count.article }} </span>
+          </p>
+        </el-col>
+        <el-col :span="6">
+          <p>
+            <span> 评论数: </span>
+            <span> {{ count.comment }} </span>
+          </p>
+        </el-col>
+        <el-col :span="6">
+          <p>
+            <span> 留言数: </span>
+            <span> {{ count.messageWall }} </span>
+          </p>
+        </el-col>
+      </el-row>
+      <el-row>
+        <!-- <el-col :span="12">
           <div class="person-message">
             <p>  
               <i class="el-icon-user-solid"></i>
@@ -68,7 +81,7 @@
               </span>
             </p>
           </div>
-        </el-col>
+        </el-col> -->
       </el-row>
     </main>
   </div>
@@ -78,7 +91,7 @@ export default {
   name: 'index',
   data() {
     return {
-      imageUrl: '',
+      count: {},
       weather: {
         city:"石家庄",
         realtime:{
@@ -94,24 +107,6 @@ export default {
     }
   },
   methods: {
-    // 上传之前回调
-    beforeAvatarUpload (file) {
-      const isPicture = (file.type === 'image/jpeg' || file.type === 'image/png')
-      const isLt2M = file.size / 1024 / 1024 < 2
-
-      if (!isPicture) {
-        this.$message.error('上传头像图片只能是 JPG 或者 PNG 格式!')
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
-      return isPicture && isLt2M
-    },
-    // 上传成功回调
-    async handleAvatarSuccess (res) {
-      this.imageUrl = res.result.url
-      this.$store.dispatch('initPage')
-    },
     // 获取天气
     async getWeather (city) {
       let data = await this.$store.dispatch('getWeather', {
@@ -126,18 +121,16 @@ export default {
       let end = data.result.indexOf('市')
       let city = data.result.slice(start, end)
       this.getWeather(city)
-    }
-  },
-  computed: {
-    action () {
-      return '/upload/avatar'
+    },
+    // 获取总数
+    async getCount () {
+      let data = await this.$store.dispatch('getCount')
+      this.count = data.result
     }
   },
   created () {
+    this.getCount()
     // this.getIp()
-    setTimeout(() => {
-      this.imageUrl = this.$store.state.user.user.url
-    }, 500)
   }
 }
 </script>
@@ -156,35 +149,20 @@ export default {
       }
     }
     &>main {
-      margin-top: 50px;
+      margin-top: 20px;
       overflow: hidden;
-      .el-row {
-        .el-col:nth-child(1) {
+      .el-row:nth-child(1) {
+        .el-col {
           text-align: center;
+          padding: 0 20px;
+          &>p {
+            line-height: 50px;
+            font-size: 20px;
+            border-radius: 5px;
+            color: #fff;
+            background: linear-gradient(#007FE0, #74FAED);
+          }
         }
-      }
-      .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-      }
-      .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-      }
-      .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 200px;
-        height: 200px;
-        line-height: 200px;
-        text-align: center;
-      }
-      .avatar {
-        width: 200px;
-        height: 200px;
-        display: block;
       }
       .person-message {
         float: left;
