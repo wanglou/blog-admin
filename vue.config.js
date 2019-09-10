@@ -16,5 +16,9 @@ module.exports = {
       }
     }
   },
-  lintOnSave: true   // 取消 eslint 验证
+  lintOnSave: true,   // 取消 eslint 验证
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ]
 };

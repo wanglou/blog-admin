@@ -3,6 +3,14 @@ import axios from './axios'
 export function getCount () {
   return axios.get('/index/count').then((res) => res)
 }
+// 获取首页文章分类
+export function getIndexArticle () {
+  return axios.get('/index/article').then((res) => res)
+}
+// 获取首页文章分类
+export function fiveCount () {
+  return axios.get('/index/fiveCount').then((res) => res)
+}
 // 获取天气
 export function getWeather (data) {
   return axios.get('/getWeather', {params: data}).then((res) => res)

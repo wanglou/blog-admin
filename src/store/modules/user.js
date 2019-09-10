@@ -15,8 +15,18 @@ const mutations = {
   }
 }
 const actions = {
+  async fiveCount ({commit}, data) {
+    let res = await server.fiveCount(data)
+    commit
+    return res.data
+  },
   async getCount ({commit}, data) {
     let res = await server.getCount(data)
+    commit
+    return res.data
+  },
+  async getIndexArticle ({commit}, data) {
+    let res = await server.getIndexArticle(data)
     commit
     return res.data
   },

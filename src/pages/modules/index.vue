@@ -24,7 +24,7 @@
       <el-row>
         <el-col :span="6">
           <p>
-            <span> 访问量: </span>
+            <span> 总访问量: </span>
             <span> {{ count.count }} </span>
           </p>
         </el-col>
@@ -42,12 +42,28 @@
         </el-col>
         <el-col :span="6">
           <p>
-            <span> 留言数: </span>
+            <span> 留言墙: </span>
             <span> {{ count.messageWall }} </span>
           </p>
         </el-col>
       </el-row>
       <el-row>
+        <el-col :span="12">
+            <div>
+              <p>
+                <span> 文章统计 </span>
+              </p>
+              <v-chart ref="pieOptions" :options="pieOptions"/>
+            </div>
+        </el-col>
+        <el-col :span="12">
+          <div>
+            <p>
+              <span> 最近五日访问量 </span>
+            </p>
+            <v-chart ref="barOptions" :options="barOptions"/>
+          </div>
+        </el-col>
         <!-- <el-col :span="12">
           <div class="person-message">
             <p>  
@@ -87,10 +103,52 @@
   </div>
 </template>
 <script>
+import { dateFormat } from '../../filters/index'
 export default {
   name: 'index',
   data() {
     return {
+      barOptions: {
+        tooltip: {
+          trigger: 'item',
+          formatter: "访问量: {c}次"
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+          axisLabel:{
+            rotate:45,
+            textStyle:{
+              fontSize: "10"
+            }
+          }
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          data: [],
+          type: 'bar'
+        }]
+      },
+      pieOptions: {
+        tooltip: {
+          trigger: 'item',
+          formatter: "{b}: {c} ({d}%)"
+        },
+        legend: {
+          orient: 'vertical',
+          x: 'left',
+          data: []
+        },
+        series: [
+          {
+            type: 'pie',
+            radius : '55%',
+            data: []
+          }
+        ]
+      },
       count: {},
       weather: {
         city:"石家庄",
@@ -126,10 +184,39 @@ export default {
     async getCount () {
       let data = await this.$store.dispatch('getCount')
       this.count = data.result
+    },
+    // 获取柱状图
+    async getBar () {
+      let fiveCount = await this.$store.dispatch('fiveCount')
+      let barX = []
+      let barLegend = []
+      let start = 0
+      let end = fiveCount.result.length
+      if (end > 5) {
+        start = end - 5
+      }
+      fiveCount.result.slice(start, end).forEach(item => {
+        barX.push(item.month + 1 + '/' + item.day)
+        barLegend.push({name: item.month + 1 + '/' + item.day, value: item.count})
+      })
+      this.barOptions.xAxis.data = barX
+      this.barOptions.series[0].data = barLegend
+      let data = await this.$store.dispatch('getIndexArticle')
+      this.pieOptions.series[0].data = data.result
+      let arr = []
+      data.result.forEach(item => {
+        arr.push(item.name)
+      })
+      this.pieOptions.legend.data = arr
     }
   },
   created () {
     this.getCount()
+    this.getBar()
+     window.onresize = () => {
+      this.$refs.barOptions.resize()
+      this.$refs.pieOptions.resize()
+    }
     // this.getIp()
   }
 }
@@ -175,6 +262,27 @@ export default {
           }
           &>span {
             font-size: 20px;
+          }
+        }
+      }
+      .el-row:nth-child(2) {
+        margin-top: 20px;
+        .el-col {
+          padding: 0 20px;
+          &>div {
+            border: 1px solid #06637C;
+            p {
+              background: #06647D;
+              line-height: 40px;
+              span {
+                color: #2EF5FC;
+                font-size: 16px;
+                margin-left: 10px;
+              }
+            }
+            .echarts {
+              width: 100%;
+            }
           }
         }
       }
