@@ -34,6 +34,16 @@ const actions = {
     let res = await server.initPage(data)
     commit('user', res)
   },
+  async getPerson ({commit}, data) {
+    let res = await server.getPerson(data)
+    commit
+    return res.data
+  },
+  async updatePerson ({commit}, data) {
+    let res = await server.updatePerson(data)
+    commit
+    return res.data
+  },
   async getUser ({commit}, data) {
     let res = await server.getUser(data)
     commit

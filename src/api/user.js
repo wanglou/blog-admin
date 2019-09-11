@@ -20,6 +20,14 @@ export function getIp (data) {
   return axios.get('/getIp', {params: data}).then((res) => res)
 }
 // 初始化信息
+// 获取个人信息
+export function getPerson () {
+  return axios.get('/person').then((res) => res)
+}
+// 修改个人信息
+export function updatePerson (data) {
+  return axios.put('/person', data).then((res) => res)
+}
 // 获取用户列表
 export function getUser (data) {
   return axios.get('/user', {params: data}).then((res) => res)

@@ -64,46 +64,11 @@
             <v-chart ref="barOptions" :options="barOptions"/>
           </div>
         </el-col>
-        <!-- <el-col :span="12">
-          <div class="person-message">
-            <p>  
-              <i class="el-icon-user-solid"></i>
-              <span>
-                爱生活爱生命
-              </span>
-            </p>
-            <p>  
-              <i class="iconfont icon-email"></i>
-              <span>
-                wangloul@163.com
-              </span>
-            </p>
-            <p>  
-              <i class="iconfont icon-qq"></i>
-              <span>
-                799817928
-              </span>
-            </p>
-            <p>
-              <i class="iconfont icon-wechat"></i>
-              <span>
-                wxl799817928
-              </span>
-            </p>
-            <p>
-              <i class="iconfont icon-github"></i>
-              <span>
-                https://github.com/wanglou
-              </span>
-            </p>
-          </div>
-        </el-col> -->
       </el-row>
     </main>
   </div>
 </template>
 <script>
-import { dateFormat } from '../../filters/index'
 export default {
   name: 'index',
   data() {
@@ -115,13 +80,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: [],
-          axisLabel:{
-            rotate:45,
-            textStyle:{
-              fontSize: "10"
-            }
-          }
+          data: []
         },
         yAxis: {
           type: 'value'
@@ -230,7 +189,7 @@ export default {
     margin-top: 20px;
     header {
       span {
-        margin: 0 10px;
+        margin: 0 20px;
         font-size: 16px;
         font-weight: bold;
       }

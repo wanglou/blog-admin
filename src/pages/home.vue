@@ -36,7 +36,7 @@
               <i class="el-icon-caret-bottom"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="dialogVisible = true">修改头像</el-dropdown-item>
+              <el-dropdown-item @click.native="getPerson">个人信息</el-dropdown-item>
               <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -66,20 +66,63 @@
     </main>
     <!-- 弹出框 -->
     <el-dialog
-      title="修改头像"
+      title="个人信息"
       :visible.sync="dialogVisible"
-      width="500px">
-        <el-upload
-          class="avatar-uploader"
-          :action="action"
-          name="filename"
-          :data="{userId: $store.state.user.user.id, url: $store.state.user.user.url}"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      width="800px">
+      <el-row>
+        <el-col :span="10">
+          <el-upload
+            class="avatar-uploader"
+            :action="action"
+            name="filename"
+            :data="{userId: $store.state.user.user.id, url: $store.state.user.user.url}"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-col>
+        <el-col :span="14">
+          <div class="person-message">
+            <p>  
+              <i class="el-icon-user-solid"></i>
+              <span @dblclick="dblPerson(1)" v-if="personMessageShow.name">
+                {{ personMessage.name }}
+              </span>
+              <el-input ref="name" @blur="blurPerson(1)" v-else v-model.trim="personMessage.name" maxlength="20"></el-input>
+            </p>
+            <p>  
+              <i class="iconfont icon-email"></i>
+              <span @dblclick="dblPerson(2)" v-if="personMessageShow.email">
+                {{ personMessage.email }}
+              </span>
+              <el-input ref="email" @blur="blurPerson(2)" v-else v-model.trim="personMessage.email" maxlength="50"></el-input>
+            </p>
+            <p>  
+              <i class="iconfont icon-qq"></i>
+              <span @dblclick="dblPerson(3)" v-if="personMessageShow.qq">
+                {{ personMessage.qq }}
+              </span>
+              <el-input ref="qq" @blur="blurPerson(3)" v-else v-model.trim="personMessage.qq" maxlength="20"></el-input>
+            </p>
+            <p>
+              <i class="iconfont icon-wechat"></i>
+              <span @dblclick="dblPerson(4)" v-if="personMessageShow.wechat">
+                {{ personMessage.wechat }}
+              </span>
+              <el-input ref="wechat" @blur="blurPerson(4)" v-else v-model.trim="personMessage.wechat" maxlength="20"></el-input>
+            </p>
+            <p>
+              <i class="iconfont icon-github"></i>
+              <span @dblclick="dblPerson(5)" v-if="personMessageShow.github">
+                {{ personMessage.github }}
+              </span>
+              <el-input ref="github" @blur="blurPerson(5)" v-else v-model.trim="personMessage.github" maxlength="100"></el-input>
+            </p>
+          </div>
+        </el-col>
+      </el-row>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">关 闭</el-button>
       </span>
@@ -88,10 +131,25 @@
 </template>
 <script>
 import {global} from '../global/global';
+import { error } from '../utils/index';
 export default {
   name: 'home',
   data() {
     return {
+      personMessage: {
+        name: '',
+        email: '',
+        qq: '',
+        wechat: '',
+        github: ''
+      },
+      personMessageShow: {
+        name: true,
+        email: true,
+        qq: true,
+        wechat: true,
+        github: true
+      },
       imageUrl: '',
       dialogVisible: false,
       imgUrl: '',
@@ -148,6 +206,74 @@ export default {
       if (data.code === 1) {
         this.$router.push('/login')
       }
+    },
+    // 获取个人信息
+    async getPerson () {
+      this.dialogVisible = true
+      let data = await this.$store.dispatch('getPerson')
+      this.personMessage = data.result
+    },
+    // 修改个人信息
+    async blurPerson (val) {
+      if (!this.personMessage.name || !this.personMessage.email || !this.personMessage.qq || !this.personMessage.wechat || !this.personMessage.github) {
+        error('不可以为空')
+        return
+      }
+      await this.$store.dispatch('updatePerson', this.personMessage)
+      switch(val) {
+        case 1:
+          this.personMessageShow.name = true
+          break;
+        case 2:
+          this.personMessageShow.email = true
+          break;
+        case 3:
+          this.personMessageShow.qq = true
+          break;
+        case 4:
+          this.personMessageShow.wechat = true
+          break;
+        case 5:
+          this.personMessageShow.github = true
+          break;
+      }
+      let data2 = await this.$store.dispatch('getPerson')
+      this.personMessage = data2.result
+    },
+    
+    dblPerson (val) {
+      switch(val) {
+        case 1:
+          this.personMessageShow.name = false
+          setTimeout(() => {
+            this.$refs.name.focus()
+          }, 50);
+          break;
+        case 2:
+          this.personMessageShow.email = false
+          setTimeout(() => {
+            this.$refs.email.focus()
+          }, 50);
+          break;
+        case 3:
+          this.personMessageShow.qq = false
+          setTimeout(() => {
+            this.$refs.qq.focus()
+          }, 50);
+          break;
+        case 4:
+          this.personMessageShow.wechat = false
+          setTimeout(() => {
+            this.$refs.wechat.focus()
+          }, 50);
+          break;
+        case 5:
+          this.personMessageShow.github = false
+          setTimeout(() => {
+            this.$refs.github.focus()
+          }, 50);
+          break;
+      } 
     }
   },
   watch: {
@@ -227,7 +353,7 @@ export default {
       padding: 20px;
     }
   }
-  .el-dialog {
+  &>.el-dialog__wrapper {
     .avatar-uploader .el-upload {
       border: 1px dashed #d9d9d9;
       border-radius: 6px;
@@ -253,6 +379,32 @@ export default {
       width: 200px;
       height: 200px;
       display: block;
+    }
+    .person-message {
+      padding-left: 50px;
+      &>p {
+        height: 34px;
+        margin-bottom: 10px;
+        &>i {
+          font-size: 24px;
+          margin-right: 20px;
+          margin-top: 5px;
+          visibility: middle;
+        }
+        &>span {
+          font-size: 20px;
+          user-select: none;
+        }
+        .el-input {
+          width: 300px;
+        }
+      }
+    }
+    .el-dialog__footer {
+      text-align: center;
+      .el-button {
+        width: 85%;
+      }
     }
   }
 }
