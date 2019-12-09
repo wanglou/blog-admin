@@ -18,6 +18,8 @@ import commentDetail from '@/pages/comment/commentDetail'
 import messageWall from '@/pages/messageWall/messageWall'
 // 友链
 import friendChain from '@/pages/friendChain/friendChain'
+// 聊天室
+import chatRoom from '@/pages/chatRoom/chatRoom'
 
 Vue.use(Router)
 var routes = [
@@ -35,7 +37,8 @@ var routes = [
       { path: '/comment', meta: {defaultActive: '/comment', name: '评论'}, component: commentPage },
       { path: '/commentDetail', meta: {defaultActive: '/comment', name: '评论'}, component: commentDetail },
       { path: '/messageWall', meta: {defaultActive: '/messageWall', name: '留言墙'}, component: messageWall },
-      { path: '/friendChain', meta: {defaultActive: '/friendChain', name: '友链'}, component: friendChain }
+      { path: '/friendChain', meta: {defaultActive: '/friendChain', name: '友链'}, component: friendChain },
+      { path: '/chatRoom', meta: {defaultActive: '/chatRoom', name: '聊天室'}, component: chatRoom }
     ]
   },
   {

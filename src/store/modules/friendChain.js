@@ -17,6 +17,11 @@ const actions = {
     let res = await server.delFriendChain(data)
     commit
     return res.data
+  },
+  async getWebsocketTest ({commit}, data) {
+    let res = await server.getWebsocketTest(data)
+    commit
+    return res.data
   }
 }
 

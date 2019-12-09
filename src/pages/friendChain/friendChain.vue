@@ -7,7 +7,7 @@
     </div>
     <ul>
       <transition-group name="fadeIn">
-        <li v-for="(item, index) in friendChainList" :key="index">
+        <li v-for="(item) in friendChainList" :key="item.id">
           <span @click="jump(item)">
             {{ item.name }}
           </span>
@@ -70,6 +70,8 @@ export default {
       }).catch(() => {
       });
     }
+  },
+  mounted () {
   },
   created () {
     this.getFriendChain()

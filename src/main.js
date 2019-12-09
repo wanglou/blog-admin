@@ -4,6 +4,7 @@ import ECharts from 'vue-echarts'
 import router from './router'
 import store from './store/index'
 import ElementUI from 'element-ui'
+import VueSocketio from 'vue-socket.io';
 import 'element-ui/lib/theme-chalk/index.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -11,6 +12,10 @@ import * as filters from './filters'
 import 'echarts'
 // import { global } from './global/global';
 
+Vue.use(new VueSocketio({
+  debug: true, 
+  connection: 'http://192.168.1.189:7001/'
+}));
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.component('v-chart', ECharts)
