@@ -2,7 +2,16 @@
   <div class="chat-room">
     <div class="list" id="div-chat-list">
       <ul id="chat-list">
-        <li v-for="(item, index) in chatList" :class="{'right': item.type === '2'}" :key="index">
+        <li v-for="(item, index) in chatList" :class="{'right': item.createdName === $store.state.user.user.loginName}" :key="index">
+          <div>
+            <span>
+              {{ Number(item.createdTime) | dateFormat('yyyy-MM-dd HH:mm:ss') }}
+            </span>
+          </div>
+          <img v-if="item.imgUrl" :src="item.imgUrl" alt="">
+          <span v-else>
+            {{ item.createdName.slice(0, 1)}}
+          </span>
           <p>
             {{ item.content}}
           </p>
@@ -10,14 +19,12 @@
       </ul>
     </div>
     <div class="add">
-      <el-input v-model="content" type="textarea" rows="3"></el-input>
-      <el-button type="primary" @click="send('1')"> 发送-1 </el-button>
-      <el-button type="primary" @click="send('2')"> 发送-2 </el-button>
+      <el-input v-model.trim="content" type="textarea" rows="3"  @keyup.enter.native="send"></el-input>
+      <el-button type="primary" @click="send"> 发送 </el-button>
     </div>
   </div>
 </template>
 <script>
-import { error } from '../../utils'
 export default {
   name: 'chat-room',
   data() {
@@ -48,15 +55,15 @@ export default {
     }
   },
   methods: {
-    send (type) {
+    send () {
       if (this.content) {
         this.$socket.emit('websocketTest', {
           content: this.content,
-          type: type
+          createdName: this.$store.state.user.user.loginName,
+          createdTime: new Date().getTime(),
+          imgUrl: this.$store.state.user.user.url
         })
         this.content = ''
-      } else {
-        error('请输入内容')
       }
     },
     // 查询初始对话
@@ -89,6 +96,31 @@ export default {
       overflow-x: hidden;
       li {
         margin-top: 20px;
+        div {
+          text-align: center;
+          margin-bottom: 10px;
+          span {
+            display: inline-block;
+            width: 200px;
+            line-height: 30px;
+            border-radius: 5px;
+            background: #DADADA;
+            color: #fff;
+          }
+        }
+        &>span,img {
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          vertical-align: top;
+          font-size: 20px;
+          color: #fff;
+          text-align: center;
+          line-height: 40px;
+          margin: 0 10px;
+          border-radius: 50%;
+          background: #BCCCD9;
+        }
         p {
           display: inline-block;
           width: 400px;
@@ -102,6 +134,9 @@ export default {
           p {
             background: #9EEA6A;
             text-align: left
+          }
+          &>span,img {
+            float: right;
           }
         }
       }

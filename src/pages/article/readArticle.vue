@@ -118,7 +118,7 @@ export default {
       border-radius: 10px;
       padding: 20px;
       margin-top: 20px;
-      h2 {
+      .title {
         margin: 20px 0;
         text-align: center;
       }
