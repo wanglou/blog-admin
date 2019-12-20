@@ -20,6 +20,8 @@ import messageWall from '@/pages/messageWall/messageWall'
 import friendChain from '@/pages/friendChain/friendChain'
 // 聊天室
 import chatRoom from '@/pages/chatRoom/chatRoom'
+// 小游戏
+import game from '@/pages/game/game'
 
 Vue.use(Router)
 var routes = [
@@ -38,7 +40,8 @@ var routes = [
       { path: '/commentDetail', meta: {defaultActive: '/comment', name: '评论'}, component: commentDetail },
       { path: '/messageWall', meta: {defaultActive: '/messageWall', name: '留言墙'}, component: messageWall },
       { path: '/friendChain', meta: {defaultActive: '/friendChain', name: '友链'}, component: friendChain },
-      { path: '/chatRoom', meta: {defaultActive: '/chatRoom', name: '聊天室'}, component: chatRoom }
+      { path: '/chatRoom', meta: {defaultActive: '/chatRoom', name: '聊天室'}, component: chatRoom },
+      { path: '/game', meta: {defaultActive: '/game', name: '小游戏'}, component: game }
     ]
   },
   {
