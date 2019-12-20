@@ -131,11 +131,11 @@ export default {
           } else {
             _this.dialogShow = true
             clearInterval(_this.timer)
-            // _this.snakeList = [
-            //   { left: 120, top: 360 },
-            //   { left: 100, top: 360 },
-            //   { left: 80, top: 360 }
-            // ]
+            _this.snakeList = [
+              { left: 120, top: 360 },
+              { left: 100, top: 360 },
+              { left: 80, top: 360 }
+            ]
           }
           console.log('空格')
           break;
