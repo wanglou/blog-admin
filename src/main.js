@@ -14,7 +14,7 @@ import 'echarts'
 
 Vue.use(new VueSocketio({
   debug: true, 
-  connection: 'http://192.168.1.189:7001/'
+  connection: 'http://192.168.0.101:7001/'
 }));
 Vue.use(mavonEditor)
 Vue.use(ElementUI)

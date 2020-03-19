@@ -22,6 +22,8 @@ import friendChain from '@/pages/friendChain/friendChain'
 import chatRoom from '@/pages/chatRoom/chatRoom'
 // 小游戏
 import game from '@/pages/game/game'
+// webrtc
+import webrtc from '@/pages/webrtc/local1'
 
 Vue.use(Router)
 var routes = [
@@ -41,7 +43,8 @@ var routes = [
       { path: '/messageWall', meta: {defaultActive: '/messageWall', name: '留言墙'}, component: messageWall },
       { path: '/friendChain', meta: {defaultActive: '/friendChain', name: '友链'}, component: friendChain },
       { path: '/chatRoom', meta: {defaultActive: '/chatRoom', name: '聊天室'}, component: chatRoom },
-      { path: '/game', meta: {defaultActive: '/game', name: '小游戏'}, component: game }
+      { path: '/game', meta: {defaultActive: '/game', name: '小游戏'}, component: game },
+      { path: '/webrtc', meta: {defaultActive: '/webrtc', name: 'webrtc'}, component: webrtc }
     ]
   },
   {

@@ -167,7 +167,8 @@ export default {
         { name: '留言墙', path: '/messageWall', icon: 'el-icon-document' },
         { name: '友链', path: '/friendChain', icon: 'el-icon-link' },
         { name: '聊天室', path: '/chatRoom', icon: 'el-icon-chat-round' },
-        { name: '小游戏', path: '/game', icon: 'el-icon-coordinate' }
+        { name: '小游戏', path: '/game', icon: 'el-icon-coordinate' },
+        { name: 'webrtc', path: '/webrtc', icon: 'el-icon-coordinate' }
       ]
     }
   },
