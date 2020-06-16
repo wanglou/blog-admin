@@ -176,7 +176,7 @@ export default {
       this.$refs.barOptions.resize()
       this.$refs.pieOptions.resize()
     }
-    // this.getIp()
+    this.getIp()
   }
 }
 </script>

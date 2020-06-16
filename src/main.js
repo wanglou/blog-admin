@@ -10,7 +10,7 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import * as filters from './filters'
 import 'echarts'
-import './mock/index'
+// import './mock/index'
 // import { global } from './global/global';
 
 // Vue.use(new VueSocketio({

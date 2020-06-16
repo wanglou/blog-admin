@@ -40,10 +40,9 @@ export default {
           loginName: this.loginName,
           loginPassword: this.loginPassword
         })
-        console.log(data)
         if (data.code === 1) {
           this.$store.dispatch('initPage')
-          // this.$router.push('/index')
+          this.$router.push('/index')
         } else {
           error(data.result)
         }
