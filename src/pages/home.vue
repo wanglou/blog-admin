@@ -284,26 +284,26 @@ export default {
       this.defaultActiveName = val.meta.name
     },
     imgUrl2 () {
-      this.imgUrl = 'http://39.105.229.131:7001' + this.$store.state.user.user.url
+      this.imgUrl = 'http://39.105.229.131:9002' + this.$store.state.user.user.url
     }
   },
   computed: {
     imgUrl2 () {
-      return 'http://39.105.229.131:7001' + this.$store.getters.user.url
+      return 'http://39.105.229.131:9002' + this.$store.getters.user.url
     },
     action () {
-      return 'http://39.105.229.131:7001' + '/upload/avatar'
+      return 'http://39.105.229.131:9002' + '/upload/avatar'
     }
   },
   async created () {
-    await this.$store.dispatch('initPage')
+    await this.$store.dispatch('initPage', {loginName: sessionStorage.loginName})
     this.name = this.$store.state.user.user.loginName
-    this.imgUrl = 'http://39.105.229.131:7001' + this.$store.state.user.user.url
+    this.imgUrl = 'http://39.105.229.131:9002' + this.$store.state.user.user.url
     let obj = this.$route
     this.defaultActiveName = obj.meta.name
     this.defaultActive = obj.meta.defaultActive
     setTimeout(() => {
-      this.imageUrl = 'http://39.105.229.131:7001' + this.$store.state.user.user.url
+      this.imageUrl = 'http://39.105.229.131:9002' + this.$store.state.user.user.url
     }, 500)
   }
 }

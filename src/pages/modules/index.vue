@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <header>
+    <!-- <header>
       <span>
         {{ weather.city }}
       </span>
@@ -19,7 +19,7 @@
         湿度：
         {{ weather.realtime.humidity }}%
       </span>
-    </header>
+    </header> -->
     <main>
       <el-row>
         <el-col :span="6">
@@ -129,7 +129,9 @@ export default {
       let data = await this.$store.dispatch('getWeather', {
         city: city
       })
-      this.weather = data.result
+      if (data.code === 1) {
+        this.weather = data.result
+      }
     },
     // 获取ip
     async getIp () {

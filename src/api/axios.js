@@ -2,7 +2,7 @@ import axios from 'axios'
 import querystring from 'querystring'
 import router from '../router'
 const service = axios.create({
-  baseURL: 'http://39.105.229.131:7001/'
+  baseURL: 'http://39.105.229.131:9002/'
 })
 
 // 拦截器

@@ -33,8 +33,8 @@ export function getUser (data) {
   return axios.get('/user', {params: data}).then((res) => res)
 }
 // 初始化信息
-export function initPage () {
-  return axios.get('/initPage').then((res) => res)
+export function initPage (data) {
+  return axios.get('/initPage',{params: data}).then((res) => res)
 }
 // 添加用户
 export function addUser (data) {

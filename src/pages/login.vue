@@ -41,7 +41,8 @@ export default {
           loginPassword: this.loginPassword
         })
         if (data.code === 1) {
-          this.$store.dispatch('initPage')
+          this.$store.dispatch('initPage', {loginName: this.loginName})
+          sessionStorage.loginName = this.loginName
           this.$router.push('/index')
         } else {
           error(data.result)
